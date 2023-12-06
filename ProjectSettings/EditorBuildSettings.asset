@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/4000_Fantasy_Icons/Z_Other/Scene/Demo.unity
     guid: a0f2b8b053a093844a8291556ef9719e
+  - enabled: 1
+    path: Assets/Saussol/SuperChest.unity
+    guid: 43caa6e0ad7741d4d94968517801166e
   m_configObjects: {}

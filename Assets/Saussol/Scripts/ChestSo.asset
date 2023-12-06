@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d2701ef821255a4aa6b0db3f07b6e0f, type: 3}
+  m_Name: ChestSo
+  m_EditorClassIdentifier: 
+  chestColor:
+  - {fileID: 21300000, guid: 06dbe548b5b4cbf45991ec3da66b89bc, type: 3}
+  - {fileID: 21300000, guid: 88efbacfa4347654c94cb2dedff6fa43, type: 3}
+  - {fileID: 21300000, guid: b26868abefed13742a68ffd16212c393, type: 3}
+  - {fileID: 21300000, guid: d9da920a26c6fc046a8d8e9ba8b1b740, type: 3}
+  Item:
+  - {fileID: 21300000, guid: 484d85414d873cd4297a5743e20327ce, type: 3}
+  - {fileID: 21300000, guid: 3ab0eacf9e9aacb4480fa259bd7cf897, type: 3}
+  - {fileID: 21300000, guid: 5298b16f07fdc254882392d213933f28, type: 3}
+  - {fileID: 21300000, guid: b303f05c2843e294889c503b4c359c87, type: 3}
+  - {fileID: 21300000, guid: d9938823049520d46b541ee3df7d206d, type: 3}
+  - {fileID: 21300000, guid: 74f0813b0dfb01f428a9b50334100a9f, type: 3}
+  - {fileID: 21300000, guid: 7a7cb22a23b4b184f8f571ea14b72367, type: 3}
+  - {fileID: 21300000, guid: b403d947140108b47873efd6192564ab, type: 3}
+  - {fileID: 21300000, guid: a639f99852add1e469f64ba17f35fb1a, type: 3}
+  - {fileID: 21300000, guid: 96f01e14f11db5042adae5f374a1b10e, type: 3}

@@ -44,6 +44,54 @@ public class GameManager : MonoBehaviour
 
     private List<int> SeedList = new List<int>();
 
+    void Start()
+    {
+        int[] seedArray = new int[6];
+
+        // Génère une seed de 6 nombres entiers aléatoires
+        for (int i = 0; i < seedArray.Length; i++)
+        {
+            seedArray[i] = Random.Range(0, 10); // Génère des nombres entre 0 et 9
+        }
+
+        // Convertit le tableau en un nombre entier
+        int seed = ArrayToInt(seedArray);
+
+        // Utilise la seed générée
+        Random.InitState(seed);
+        Debug.Log("Seed générée : " + seed);
+
+
+        long ticks = System.DateTime.Now.Ticks;
+        int seed2 = ExtractSixDigitSeed(ticks);
+
+        // Utilise la seed générée
+        Random.InitState(seed2);
+        Debug.Log("Seed basée sur le temps (six premiers chiffres) : " + seed2);
+    }
+
+    // Fonction pour convertir un tableau d'entiers en un seul entier
+    int ArrayToInt(int[] array)
+    {
+        int value = 0;
+        for (int i = 0; i < array.Length; i++)
+        {
+            value += array[i] * (int)Mathf.Pow(10, array.Length - i - 1);
+        }
+        return value;
+    }
+
+    int ExtractSixDigitSeed(long ticks)
+    {
+        // Convertit les ticks en une seed de 9 chiffres (en utilisant les 9 premiers chiffres)
+        int seed = (int)(ticks % 1000000000);
+
+        // Garde seulement les six premiers chiffres
+        seed = seed / 1000;
+
+        return seed;
+    }
+
     public void OpenChest(int chestLvl)
     {
         StartRandomLoot(chestLvl);

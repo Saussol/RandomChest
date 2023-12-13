@@ -1,45 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Pointer : MonoBehaviour
 {
-    public int chestLvl;
+    public int chestName;
 
-    public Image colorchest;
+    public TextMeshProUGUI textMeshPro;
 
     public void OnClickOpenChest()
-    {     
-        switch (chestLvl)
-        {
-            case 1:
-                Good();
-                break;
-            case 2:
-                if (GameManager._instance.greenBook >= 1)
-                {
-                    Good();
-                }
-                break;
-            case 3:
-                if (GameManager._instance.violetBook >= 1)
-                {
-                    Good();
-                }
-                break;
-            case 4:
-                if (GameManager._instance.redBook >= 1)
-                {
-                    Good();
-                }
-                break;
-        }       
+    {
+        GameManager._instance.OpenChest(chestName);
     }
 
-    private void Good()
+    public void LateUpdate()
     {
-        GameManager._instance.OpenChest(chestLvl);
+        if (GameManager._instance.validate[chestName])
+        {
+            Destroy(gameObject);
+        }
+    }
+    private void Good()
+    {       
         Destroy(gameObject);
     }
 }

@@ -10,5 +10,7 @@ public class ChestSo : ScriptableObject
 {
     public Sprite[] chestColor;
     public Sprite[] Item;// 10 item
-    
+    public List<string> seedList;
+
+
 }

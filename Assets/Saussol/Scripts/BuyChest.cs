@@ -8,7 +8,7 @@ public class BuyChest : MonoBehaviour
 
     public void Onclick(int idChest)
     {
-        if (GameManager._instance.gold >= price)
+        /*if (GameManager._instance.gold >= price)
         {
             GameManager._instance.ChangeGold(-price);
             GameManager._instance.spawnChest.SwpawnerNewChest(idChest);
@@ -16,6 +16,6 @@ public class BuyChest : MonoBehaviour
         else
         {
             Debug.Log("ta pas de thune");
-        }
+        }*/
     }
 }

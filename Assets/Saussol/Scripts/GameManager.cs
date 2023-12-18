@@ -37,16 +37,89 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     int seed; // Variable pour stocker la seed
     [SerializeField]
-    List<string> seedTab;
+    List<int> seedTab;
 
     public ChestSo chestSo;
 
     public bool[] validate;
 
+    public TextMeshProUGUI[] listePass;
+
+    public bool isPaire;
+    public bool isover35;
+
     void Start()
     {
         int randomSeed = Random.Range(0, 13);
-        ReadSeedValues(chestSo.seedList[0]); 
+        ReadSeedValues(chestSo.seedList[0]);
+
+        CreatePass(chestSo.seedList[0]);
+    }
+
+    void CreatePass(string seedLine)
+    {
+        // Convertit la chaîne de caractères en une liste d'entiers
+        string[] numbersAsString = seedLine.Split(',');
+        List<int> seedNumbers = new List<int>();
+
+        foreach (string num in numbersAsString)
+        {
+            if (int.TryParse(num, out int result))
+            {
+                seedNumbers.Add(result);
+            }
+            else
+            {
+                Debug.LogWarning("La conversion de la chaîne en entier a échoué pour : " + num);
+            }
+        }
+        // Traite les 12 nombres de la seed
+
+        if (seedNumbers[0] % 2 ==0)
+        {
+            isPaire = true;
+        }
+        else
+        {
+            isPaire= false;
+        }
+
+        if (seedNumbers[0] * 5 >= 35)
+        {
+            isover35 = true;
+        }
+        else
+        {
+            isover35 = false;
+        }
+
+        SelectedRoot();
+    }
+
+    void SelectedRoot()
+    {
+        if (isPaire)
+        {
+            if (isover35)
+            {
+                SelectedText();
+            }
+            else
+            {
+                SelectedTextV2();
+            }
+        }
+        else
+        {
+            if (isover35)
+            {
+                SelectedTextV3();
+            }
+            else
+            {
+                SelectedTextV4();
+            }
+        }
     }
 
     void ReadSeedValues(string seedLine)
@@ -70,7 +143,7 @@ public class GameManager : MonoBehaviour
         // Traite les 12 nombres de la seed
         for (int i = 0; i < seedNumbers.Count; i++)
         {
-            Debug.Log("Nombre " + (i + 1) + " de la seed : " + seedNumbers[i]);
+            // Debug.Log("Nombre " + (i + 1) + " de la seed : " + seedNumbers[i]);
             // Tu peux faire des opérations avec chaque nombre ici
 
             spawnChest[i].GetComponent<Pointer>().textMeshPro.text = cahstNam[seedNumbers[i]];
@@ -119,6 +192,70 @@ public class GameManager : MonoBehaviour
 
         return uniqueNumbers;
     }
+
+
+    void SelectedText()// text pour solus A 
+    {
+        listePass[0].text = cahstNam[0] + " ---} " + cahstNam[1];  // A ---} B
+        listePass[1].text = cahstNam[0] + " ---} " + cahstNam[2];
+        listePass[2].text = cahstNam[0] + cahstNam[2] + " ---} " + cahstNam[5];
+        listePass[3].text = cahstNam[0] + cahstNam[1] +" ---} " + cahstNam[7];
+        listePass[4].text = cahstNam[0] + cahstNam[1] + cahstNam[7] +" ---} " + cahstNam[8];
+        listePass[5].text = cahstNam[0] + cahstNam[1] + cahstNam[7] + cahstNam[6] + " ---} " + cahstNam[10];
+
+        listePass[6].text = cahstNam[1] + cahstNam[2] + " ---} " + cahstNam[3];
+        listePass[7].text = cahstNam[1] + cahstNam[2] + " ---} " + cahstNam[4];
+        listePass[8].text = cahstNam[5] + cahstNam[3] + " ---} " + cahstNam[6];
+        listePass[9].text = cahstNam[8] + cahstNam[7] + cahstNam[9] + " ---} " + cahstNam[10];
+        listePass[10].text = cahstNam[10] + cahstNam[9] + " ---} " + cahstNam[11];
+    }
+
+    void SelectedTextV2()// text pour solus A 
+    {
+        listePass[0].text = cahstNam[0] + " ---} " + cahstNam[1];  // A ---} B
+        listePass[1].text = cahstNam[0] + " ---} " + cahstNam[2];
+        listePass[2].text = cahstNam[0] + cahstNam[2] + " ---} " + cahstNam[5];
+        listePass[3].text = cahstNam[0] + cahstNam[1] + " ---} " + cahstNam[7];
+        listePass[4].text = cahstNam[0] + cahstNam[1] + cahstNam[7] + " ---} " + cahstNam[8];
+        listePass[5].text = cahstNam[0] + cahstNam[1] + cahstNam[7] + cahstNam[6] + " ---} " + cahstNam[10];
+
+        listePass[6].text = cahstNam[1] + cahstNam[2] + " ---} " + cahstNam[3];
+        listePass[7].text = cahstNam[1] + cahstNam[2] + " ---} " + cahstNam[4];
+        listePass[8].text = cahstNam[5] + cahstNam[3] + " ---} " + cahstNam[6];
+        listePass[9].text = cahstNam[8] + cahstNam[7] + cahstNam[9] + " ---} " + cahstNam[10];
+        listePass[10].text = cahstNam[10] + cahstNam[9] + " ---} " + cahstNam[11];
+    }
+    void SelectedTextV3()// text pour solus A 
+    {
+        listePass[0].text = cahstNam[0] + " ---} " + cahstNam[1];  // A ---} B
+        listePass[1].text = cahstNam[0] + " ---} " + cahstNam[2];
+        listePass[2].text = cahstNam[0] + cahstNam[2] + " ---} " + cahstNam[5];
+        listePass[3].text = cahstNam[0] + cahstNam[1] + " ---} " + cahstNam[7];
+        listePass[4].text = cahstNam[0] + cahstNam[1] + cahstNam[7] + " ---} " + cahstNam[8];
+        listePass[5].text = cahstNam[0] + cahstNam[1] + cahstNam[7] + cahstNam[6] + " ---} " + cahstNam[10];
+
+        listePass[6].text = cahstNam[1] + cahstNam[2] + " ---} " + cahstNam[3];
+        listePass[7].text = cahstNam[1] + cahstNam[2] + " ---} " + cahstNam[4];
+        listePass[8].text = cahstNam[5] + cahstNam[3] + " ---} " + cahstNam[6];
+        listePass[9].text = cahstNam[8] + cahstNam[7] + cahstNam[9] + " ---} " + cahstNam[10];
+        listePass[10].text = cahstNam[10] + cahstNam[9] + " ---} " + cahstNam[11];
+    }
+    void SelectedTextV4()// text pour solus A 
+    {
+        listePass[0].text = cahstNam[0] + " ---} " + cahstNam[1];  // A ---} B
+        listePass[1].text = cahstNam[0] + " ---} " + cahstNam[2];
+        listePass[2].text = cahstNam[0] + cahstNam[2] + " ---} " + cahstNam[5];
+        listePass[3].text = cahstNam[0] + cahstNam[1] + " ---} " + cahstNam[7];
+        listePass[4].text = cahstNam[0] + cahstNam[1] + cahstNam[7] + " ---} " + cahstNam[8];
+        listePass[5].text = cahstNam[0] + cahstNam[1] + cahstNam[7] + cahstNam[6] + " ---} " + cahstNam[10];
+
+        listePass[6].text = cahstNam[1] + cahstNam[2] + " ---} " + cahstNam[3];
+        listePass[7].text = cahstNam[1] + cahstNam[2] + " ---} " + cahstNam[4];
+        listePass[8].text = cahstNam[5] + cahstNam[3] + " ---} " + cahstNam[6];
+        listePass[9].text = cahstNam[8] + cahstNam[7] + cahstNam[9] + " ---} " + cahstNam[10];
+        listePass[10].text = cahstNam[10] + cahstNam[9] + " ---} " + cahstNam[11];
+    }
+
 
     public void OpenChest(int chestName)
     {
@@ -197,369 +334,257 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
-    /*private void StartRandomLoot(int chestLvl, int seed)
+    public void OpenChestV2(int chestName)
     {
-
-        int firstTwoDigits = seed / 1000; // pour les 2 premier 
-        firstTwoDigits %= 100;
-
-        switch (chestLvl)
-        {
-            case 1:
-                if (firstTwoDigits <= 40)//item
-                {
-                    GetItem(1, seed) ;
-                }
-                else if (firstTwoDigits >= 41 && firstTwoDigits <= 80)//gold
-                {
-                    GetGold(1);
-                }
-                else if (firstTwoDigits >= 81)//chest + key
-                {
-                    GetChest(1);
-                }
-                break;
-            case 2:
-                if (greenBook >= 1)
-                {
-                    greenBook--;
-                    greenBookText.text = greenBook + " Book";
-
-                    if (firstTwoDigits <= 35)//item
-                    {
-                        GetItem(2, seed);
-                    }
-                    else if (firstTwoDigits >= 36 && firstTwoDigits <= 70)//gold
-                    {
-                        GetGold(2);
-                    }
-                    else if (firstTwoDigits >= 71)//chest + key
-                    {
-                        GetChest(2);
-                    }
-                }
-                else
-                {
-                    Debug.Log("you need green key");
-                }
-                break;
-            case 3:
-                if (violetBook >= 1)
-                {
-                    violetBook--;
-                    violetBookText.text = violetBook + " Book";
-
-                    if (firstTwoDigits <= 30)//item
-                    {
-                        GetItem(3, seed);
-                    }
-                    else if (firstTwoDigits >= 31 && firstTwoDigits <= 60)//gold
-                    {
-                        GetGold(3);
-                    }
-                    else if (firstTwoDigits >= 61)//chest + key
-                    {
-                        GetChest(3);
-                    }
-                }
-                else
-                {
-                    Debug.Log("You need violet key");
-                }
-
-                break;
-            case 4:
-                if (redBook >= 1)
-                {
-                    redBook--;
-                    redBookText.text = redBook + " Book";
-
-                    if (firstTwoDigits <= 25)//item
-                    {
-                        GetItem(4, seed);
-                    }
-                    else if (firstTwoDigits >= 26 && firstTwoDigits <= 50)//gold
-                    {
-                        GetGold(4);
-                    }
-                    else if (firstTwoDigits >= 51)//chest + key
-                    {
-                        GetChest(4);
-                    }
-                }
-                else
-                {
-                    Debug.Log("you need red key");
-                }
-
-                break;
-        }
-    }
-
-    private void GetItem(int ChestLvl, int seed)
-    {
-
-        int thirdAndFourthDigits = (seed / 100) % 100; // Divise par 100 pour décaler les chiffres, puis utilise le modulo 100 pour obtenir le troisième et le quatrième chiffre
-        //Debug.Log("Le troisième et le quatrième chiffre : " + thirdAndFourthDigits);
-
-        switch (ChestLvl)// 10 item a 10% par item 
-        {
-            case 1://80% blue 20% green
-                if (thirdAndFourthDigits <= 80)
-                {
-                    Debug.Log("blue item");
-                }
-                else
-                {
-                    Debug.Log("green item");
-                }
-                break;
-            case 2://60% blue 30% green 10% violet
-                if (thirdAndFourthDigits <= 60)
-                {
-                    Debug.Log("blue item");
-                }
-                else if (thirdAndFourthDigits <= 90)
-                {
-                    Debug.Log("green item");
-                }
-                else
-                {
-                    Debug.Log("violet item");
-                }
-                break;
-            case 3://40% blue 40% green 20% violet
-                if (thirdAndFourthDigits <= 40)
-                {
-                    Debug.Log("blue item");
-                }
-                else if (thirdAndFourthDigits <= 80)
-                {
-                    Debug.Log("green item");
-                }
-                else
-                {
-                    Debug.Log("violet item");
-                }
-                break;
-            case 4://10% blue 50% green 25% violet 15% red
-                if (thirdAndFourthDigits <= 10)
-                {
-                    Debug.Log("blue item");
-                }
-                else if (thirdAndFourthDigits <= 60)
-                {
-                    Debug.Log("green item");
-                }
-                else if (thirdAndFourthDigits <= 85)
-                {
-                    Debug.Log("violet item");
-                }
-                else
-                {
-                    Debug.Log("red item");
-                }
-                break;
-        }
-
-        string texteListe = string.Join(", ", SeedList);
-        Debug.Log(" Seed is " + texteListe);
-    }
-
-    private void GetGold(int ChestLvl)
-    {
-        int thirdAndFourthDigits = (seed / 100) % 100; 
-        //Debug.Log("Le troisième et le quatrième chiffre : " + thirdAndFourthDigits);
-
-        int addgold = (Mathf.RoundToInt(thirdAndFourthDigits) * ChestLvl) * 25;
-        Debug.Log("Add " + addgold + " Gold + " + thirdAndFourthDigits);
-
-        ChangeGold(addgold); // part 2 si c'est seed gold
-
-        string texteListe = string.Join(", ", SeedList);
-        //Debug.Log(" Seed is " + texteListe);
-    }
-
-    private void GetChest(int ChestLvl)// Get chest or key 
-    {
-        int thirdAndFourthDigits = (seed / 100) % 100;
-        //Debug.Log("Le troisième et le quatrième chiffre : " + thirdAndFourthDigits);
-
-        int fifthAndSixthDigits = seed % 100; 
-        //Debug.Log("Le cinquième et le sixième chiffre : " + fifthAndSixthDigits);
-
         
 
-        switch (ChestLvl)// 20% chest 80% clé
+        if (seedTab[0] == chestName)
         {
-            case 1:
-                if (thirdAndFourthDigits <= 20)// 75% green 25% violet
+            validate[0] = true;
+        }
+
+        switch (chestName)
+        {
+            case 0:// A
+                validate[0] = true;
+                break;
+            case 1:// B
+                if (validate[0])
                 {
-                    if (fifthAndSixthDigits <= 75)
-                    {
-                        spawnChest.SwpawnerNewChest(2);// 2 = green
-                    }
-                    else
-                    {
-                        spawnChest.SwpawnerNewChest(3);// 3 = violet
-                    }
-                }
-                else// for key chest lvl 1
-                {
-                    if (fifthAndSixthDigits >= 75)
-                    {
-                        AddBook(1);
-                    }
-                    else
-                    {
-                        AddBook(2);
-                    }
+                    validate[1] = true;
                 }
                 break;
-            case 2:
-                if (thirdAndFourthDigits <= 20)// 65% green 30% violet 5% red
+            case 2:// C
+                if (validate[0])
                 {
-                    if (fifthAndSixthDigits <= 65)
-                    {
-                        spawnChest.SwpawnerNewChest(2);// 2 = green
-                    }
-                    else if (thirdAndFourthDigits <= 95)
-                    {
-                        spawnChest.SwpawnerNewChest(3);// 3 = violet
-                    }
-                    else
-                    {
-                        spawnChest.SwpawnerNewChest(4);// 4 = red   
-                    }
-                }
-                else
-                {
-                    if (fifthAndSixthDigits <= 65)
-                    {
-                        AddBook(1);
-                    }
-                    else if (thirdAndFourthDigits <= 95)
-                    {
-                        AddBook(2);
-                    }
-                    else
-                    {
-                        AddBook(3);
-                    }
+                    validate[2] = true;
                 }
                 break;
-            case 3:
-                if (thirdAndFourthDigits <= 20)// 48% green 40% violet 12%  red
+            case 3:// D
+                if (validate[1] && validate[2])
                 {
-                    if (fifthAndSixthDigits <= 48)
-                    {
-                        spawnChest.SwpawnerNewChest(2);// 2 = green
-                    }
-                    else if (thirdAndFourthDigits <= 88)
-                    {
-                        spawnChest.SwpawnerNewChest(3);// 3 = violet
-                    }
-                    else
-                    {
-                        spawnChest.SwpawnerNewChest(4);// 4 = red   
-                    }
-                }
-                else
-                {
-                    if (fifthAndSixthDigits >= 48)
-                    {
-                        AddBook(1);
-                    }
-                    else if (thirdAndFourthDigits <= 88)
-                    {
-                        AddBook(2);
-                    }
-                    else
-                    {
-                        AddBook(3);
-                    }
+                    validate[3] = true;
                 }
                 break;
-            case 4:
-                if (thirdAndFourthDigits <= 20)// 30% green 50% violet 20% red
+            case 4:// E
+                if (validate[1] && validate[2])
                 {
-                    if (fifthAndSixthDigits <= 30)
-                    {
-                        spawnChest.SwpawnerNewChest(2);// 2 = green
-                    }
-                    else if (thirdAndFourthDigits <= 80)
-                    {
-                        spawnChest.SwpawnerNewChest(3);// 3 = violet
-                    }
-                    else
-                    {
-                        spawnChest.SwpawnerNewChest(4);// 4 = red   
-                    }
+                    validate[4] = true;
                 }
-                else
+                break;
+            case 5:// F
+                if (validate[0] && validate[2])
                 {
-                    if (fifthAndSixthDigits <= 30)
-                    {
-                        AddBook(1);
-                    }
-                    else if (thirdAndFourthDigits <= 80)
-                    {
-                        AddBook(2);
-                    }
-                    else
-                    {
-                        AddBook(3);
-                    }
+                    validate[5] = true;
+                }
+                break;
+            case 6:// G
+                if (validate[5] && validate[3])
+                {
+                    validate[6] = true;
+                }
+                break;
+            case 7:// H
+                if (validate[0] && validate[1])
+                {
+                    validate[7] = true;
+                }
+                break;
+            case 8:// I
+                if (validate[0] && validate[1] && validate[7])
+                {
+                    validate[8] = true;
+                }
+                break;
+            case 9:// J
+                if (validate[8] && validate[7] && validate[6])
+                {
+                    validate[9] = true;
+                }
+                break;
+            case 10:// K
+                if (validate[0] && validate[1] && validate[7] && validate[6])
+                {
+                    validate[10] = true;
+                }
+                break;
+            case 11:// L
+                if (validate[10] && validate[9])
+                {
+                    validate[11] = true;
+                    Debug.Log("you win");
                 }
                 break;
 
         }
-
-        string texteListe = string.Join(", ", SeedList);
-        Debug.Log(" Seed is " + texteListe);
     }
-
-
-
-    public void ChangeGold(int golde)// fonction pour add ou remove le gold 
+    public void OpenChestV3(int chestName)
     {
-        if (golde >= 0)
-        {
-            gold += golde;
-            goldText.text = gold + " Gold";
-            return;
-        }
-        else
-        {
-            gold += golde;
-            goldText.text = gold + " Gold";
-        }
 
 
+        if (seedTab[0] == chestName)
+        {
+            validate[0] = true;
+        }
+
+        switch (chestName)
+        {
+            case 0:// A
+                validate[0] = true;
+                break;
+            case 1:// B
+                if (validate[0])
+                {
+                    validate[1] = true;
+                }
+                break;
+            case 2:// C
+                if (validate[0])
+                {
+                    validate[2] = true;
+                }
+                break;
+            case 3:// D
+                if (validate[1] && validate[2])
+                {
+                    validate[3] = true;
+                }
+                break;
+            case 4:// E
+                if (validate[1] && validate[2])
+                {
+                    validate[4] = true;
+                }
+                break;
+            case 5:// F
+                if (validate[0] && validate[2])
+                {
+                    validate[5] = true;
+                }
+                break;
+            case 6:// G
+                if (validate[5] && validate[3])
+                {
+                    validate[6] = true;
+                }
+                break;
+            case 7:// H
+                if (validate[0] && validate[1])
+                {
+                    validate[7] = true;
+                }
+                break;
+            case 8:// I
+                if (validate[0] && validate[1] && validate[7])
+                {
+                    validate[8] = true;
+                }
+                break;
+            case 9:// J
+                if (validate[8] && validate[7] && validate[6])
+                {
+                    validate[9] = true;
+                }
+                break;
+            case 10:// K
+                if (validate[0] && validate[1] && validate[7] && validate[6])
+                {
+                    validate[10] = true;
+                }
+                break;
+            case 11:// L
+                if (validate[10] && validate[9])
+                {
+                    validate[11] = true;
+                    Debug.Log("you win");
+                }
+                break;
+
+        }
     }
-    public void AddBook(int book)
+    public void OpenChestV4(int chestName)
     {
-        switch (book)
+
+
+        if (seedTab[0] == chestName)
         {
-            case 1:
-                greenBook++;
-                greenBookText.text = greenBook + " Book";
-                break;
-            case 2:
-                violetBook++;
-                violetBookText.text = violetBook + " Book";
-                break;
-            case 3:
-                redBook++;
-                redBookText.text = redBook + " Book";
-                break;
+            validate[0] = true;
         }
 
-        Debug.Log("add book");
-    }
-    */
+        switch (chestName)
+        {
+            case 0:// A
+                validate[0] = true;
+                break;
+            case 1:// B
+                if (validate[0])
+                {
+                    validate[1] = true;
+                }
+                break;
+            case 2:// C
+                if (validate[0])
+                {
+                    validate[2] = true;
+                }
+                break;
+            case 3:// D
+                if (validate[1] && validate[2])
+                {
+                    validate[3] = true;
+                }
+                break;
+            case 4:// E
+                if (validate[1] && validate[2])
+                {
+                    validate[4] = true;
+                }
+                break;
+            case 5:// F
+                if (validate[0] && validate[2])
+                {
+                    validate[5] = true;
+                }
+                break;
+            case 6:// G
+                if (validate[5] && validate[3])
+                {
+                    validate[6] = true;
+                }
+                break;
+            case 7:// H
+                if (validate[0] && validate[1])
+                {
+                    validate[7] = true;
+                }
+                break;
+            case 8:// I
+                if (validate[0] && validate[1] && validate[7])
+                {
+                    validate[8] = true;
+                }
+                break;
+            case 9:// J
+                if (validate[8] && validate[7] && validate[6])
+                {
+                    validate[9] = true;
+                }
+                break;
+            case 10:// K
+                if (validate[0] && validate[1] && validate[7] && validate[6])
+                {
+                    validate[10] = true;
+                }
+                break;
+            case 11:// L
+                if (validate[10] && validate[9])
+                {
+                    validate[11] = true;
+                    Debug.Log("you win");
+                }
+                break;
 
-    //TODO generé un seed 
+        }
+    }
 }
 

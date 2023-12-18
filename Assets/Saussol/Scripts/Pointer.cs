@@ -12,11 +12,34 @@ public class Pointer : MonoBehaviour
 
     public void OnClickOpenChest()
     {
-        GameManager._instance.OpenChest(chestName);
+        if (GameManager._instance.isPaire)
+        {
+            if ((GameManager._instance.isover35))
+            {
+                GameManager._instance.OpenChest(chestName);
+            }
+            else
+            {
+                GameManager._instance.OpenChestV2(chestName);
+            }
+        }
+        else
+        {
+            if (GameManager._instance.isover35)
+            {
+                GameManager._instance.OpenChestV3(chestName);
+            }
+            else
+            {
+                GameManager._instance.OpenChestV4(chestName);
+            }
+        }
+        
     }
 
     public void LateUpdate()
     {
+
         if (GameManager._instance.validate[chestName])
         {
             Destroy(gameObject);

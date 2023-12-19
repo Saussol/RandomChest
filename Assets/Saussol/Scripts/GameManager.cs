@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
             // Tu peux faire des opérations avec chaque nombre ici
 
             spawnChest[i].GetComponent<Pointer>().textMeshPro.text = cahstNam[seedNumbers[i]];
-            spawnChest[i].GetComponent<Pointer>().chestName = seedNumbers[i];
+            //spawnChest[i].GetComponent<Pointer>().chestName = seedNumbers[i];
         }
     }
 

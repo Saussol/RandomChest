@@ -1,22 +1,114 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
+using TMPro;
 using UnityEngine;
 
 public class Manager : MonoBehaviour
 {
     // Liste de nombres aléatoires pour les portes
-    int[] listeNombres = new int[] { 2, 8, 4, 6, 1, 9, 3, 0, 7, 5, 11, 10 };
+    //int[] listeNombres = new int[] { 2, 8, 4, 6, 1, 9, 3, 0, 7, 5, 11, 10 };
+
+    public List<string> root = new List<string>();
+    public int[] seedUse;
+    public GameObject[] door;
+
+    public TextMeshProUGUI textMesh;
+    public TextMeshProUGUI seedNum;
+
+    public ChestSo chestSo;
+
+    public List<bool> isGood;
+    public int i = 0;
 
     void Start()
     {
+        CreateSeed();
+
+        int randomSeed = UnityEngine.Random.Range(0, chestSo.seedList.Count);
+        seedNum.text = "Seed : " + randomSeed;
+
+        ReadSeed(chestSo.seedList[randomSeed]);
+
         // Génération de la matrice d'adjacence
-        int[,] matriceAdjacence = GenererMatriceAdjacence(listeNombres);
+        int[,] matriceAdjacence = GenererMatriceAdjacence(seedUse/*listeNombres*/ );
 
         // Utilisation de la matrice pour ouvrir les portes
-        OuvrirPortesEnUtilisantMatrice(matriceAdjacence, listeNombres);
+        OuvrirPortesEnUtilisantMatrice(matriceAdjacence, seedUse /*listeNombres*/ );
     }
+
+    private void FixedUpdate()
+    {
+        CreateSeed();
+    }
+
+    #region GenerateSeed
+
+    void ReadSeed(string list)
+    {
+        string[] numbersAsString = list.Split(',');
+        List<int> seedNumbers = new List<int>();
+
+        foreach (string num in numbersAsString)
+        {
+            if (int.TryParse(num, out int result))
+            {
+                seedNumbers.Add(result);
+            }
+            else
+            {
+                Debug.LogWarning("La conversion de la chaîne en entier a échoué pour : " + num);
+            }
+        }
+
+        // Traite les 12 nombres de la seed
+        for (int i = 0; i < seedNumbers.Count; i++)
+        {
+            seedUse[i] = seedNumbers[i];// change all tab
+        }
+    }
+    void CreateSeed()
+    {
+        List<int> numbers = GenerateUniqueNumbers(0, 11, 12); // Génère une liste de 12 entiers uniques de 1 à 11
+        int[] seedArray = numbers.ToArray(); // Convertit la liste en tableau d'entiers
+
+        string seedString = string.Join(",", seedArray);
+        chestSo.seedList.Add(seedString);
+
+        // Utilise la seed générée
+        for (int i = 0; i < seedArray.Length; i++)
+        {
+            //Debug.Log("Valeur aléatoire générée : " + seedArray[i]);
+        }
+    }
+
+    List<int> GenerateUniqueNumbers(int minValue, int maxValue, int count)
+    {
+        if (count > (maxValue - minValue + 1) || count < 0)
+        {
+            //throw new ArgumentException("Impossible de générer autant de nombres uniques dans la plage spécifiée.");
+        }
+
+        List<int> numbers = new List<int>();
+        for (int i = minValue; i <= maxValue; i++)
+        {
+            numbers.Add(i);
+        }
+
+        List<int> uniqueNumbers = new List<int>();
+        System.Random random = new System.Random();
+
+        while (uniqueNumbers.Count < count)
+        {
+            int index = random.Next(numbers.Count);
+            uniqueNumbers.Add(numbers[index]);
+            numbers.RemoveAt(index);
+        }
+
+        return uniqueNumbers;
+    }
+
+    #endregion
 
     // Génère la matrice d'adjacence en fonction de la liste de nombres
     int[,] GenererMatriceAdjacence(int[] listeNombres)
@@ -83,18 +175,40 @@ public class Manager : MonoBehaviour
 
     // Méthode pour ouvrir les portes selon le chemin généré
     void OuvrirPortesSelonChemin(List<char> chemin)
-    {
+    {        
         foreach (char porte in chemin)
         {
-            OuvrirPorte(porte);
+            //Debug.Log(porte);
+            root.Add(porte.ToString());
         }
-        
+
+        string resultat = string.Join(" ", root);
+
+        textMesh.text = resultat;
     }
 
     // Méthode fictive pour ouvrir une porte (adapter selon votre logique)
-    void OuvrirPorte(char porte)
+    public void OuvrirPorte(string porte)
     {
-        Debug.Log("Ouverture de la porte " + porte);
-        // Votre logique pour ouvrir la porte va ici...
+        if (porte == root[0 + i])
+        {
+            for (int i = 0; i < door.Length; i++)
+            {
+                if (door[i].GetComponent<Pointer>().chestName == porte)
+                {
+                    door[i].SetActive(false);
+                }
+            }
+
+            isGood[0 + i] = true;
+
+            i++;
+            
+            Debug.Log("It's a good door");
+        }
+        else
+        {
+            Debug.Log("Not good door");
+        }
     }
 }

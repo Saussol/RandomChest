@@ -39,7 +39,7 @@ public class Manager : MonoBehaviour
 
     private void FixedUpdate()
     {
-        CreateSeed();
+        //CreateSeed();
     }
 
     #region GenerateSeed

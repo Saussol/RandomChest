@@ -244,6 +244,7 @@ MonoBehaviour:
   chestSo: {fileID: 11400000, guid: 7d797bc9b07993a4fa76a3f997ba33e7, type: 2}
   isGood: 000000000000000000000000
   i: 0
+  inputField: {fileID: 1198120057}
 --- !u!1 &319967811
 GameObject:
   m_ObjectHideFlags: 0
@@ -697,7 +698,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -354.2, y: -179.1}
+  m_AnchoredPosition: {x: -213, y: -179.1}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &901958872
@@ -743,7 +744,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 901958873}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 302167410}
+        m_TargetAssemblyTypeName: Manager, Assembly-CSharp
+        m_MethodName: SeletedSeed
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &901958873
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -995,7 +1008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -378, y: -289}
+  m_AnchoredPosition: {x: -236.80002, y: -289}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &1191392338
@@ -1131,7 +1144,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -354.9, y: -134}
+  m_AnchoredPosition: {x: -213.69998, y: -134}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1198120057
@@ -1352,7 +1365,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1306930735}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 302167410}
+        m_TargetAssemblyTypeName: Manager, Assembly-CSharp
+        m_MethodName: Regenerate
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1306930735
 MonoBehaviour:
   m_ObjectHideFlags: 0

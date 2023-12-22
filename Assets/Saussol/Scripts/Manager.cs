@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour
 {
@@ -20,6 +21,8 @@ public class Manager : MonoBehaviour
 
     public List<bool> isGood;
     public int i = 0;
+
+    public TMP_InputField inputField;
 
     void Start()
     {
@@ -40,6 +43,56 @@ public class Manager : MonoBehaviour
     private void FixedUpdate()
     {
         //CreateSeed();
+    }
+
+    public void Regenerate()
+    {
+        int randomSeed = UnityEngine.Random.Range(0, chestSo.seedList.Count);
+        seedNum.text = "Seed : " + randomSeed;
+
+        reloadSeed(randomSeed);
+    }
+
+    void reloadSeed(int seed)// 1: set bool tab false  2:  set all chest  3: change seed
+    {
+        for (int i = 0; i < isGood.Count; i++)// 1 
+        {
+            isGood[i] = false;
+            seedUse[i] = 0;
+            door[i].SetActive(true);
+        }
+
+        i = 0;
+
+        root.Clear();
+
+        ReadSeed(chestSo.seedList[seed]);
+
+        int[,] matriceAdjacence = GenererMatriceAdjacence(seedUse/*listeNombres*/ );
+
+        // Utilisation de la matrice pour ouvrir les portes
+        OuvrirPortesEnUtilisantMatrice(matriceAdjacence, seedUse /*listeNombres*/ );
+
+        seedNum.text = "Seed : " + seed;
+    }
+
+    public void SeletedSeed() 
+    {
+        Debug.Log(inputField.text);
+
+        if (int.TryParse(inputField.text, out int nombreEntier))
+        {
+            //Debug.Log("Nombre entier : " + nombreEntier);
+            if (nombreEntier <= chestSo.seedList.Count)
+            {
+                reloadSeed(nombreEntier);
+            }
+        }
+        else
+        {
+            // Si la conversion échoue 
+            //Debug.LogWarning("La conversion en entier a échoué !");
+        }
     }
 
     #region GenerateSeed
